@@ -32,7 +32,7 @@
 #' @importFrom tools file_ext
 #' @export
 s3write_using <- function(x, FUN, ..., object, bucket, opts = NULL) {
-    tmp <- tempfile()
+    tmp <- tempfile(fileext = paste0(".", tools::file_ext(object)))
     on.exit(unlink(tmp))
     value <- FUN(x, tmp, ...)
     if (missing(bucket)) {
@@ -42,7 +42,7 @@ s3write_using <- function(x, FUN, ..., object, bucket, opts = NULL) {
     if (is.null(opts)) {
         r <- put_object(file = tmp, bucket = bucket, object = object)
     } else {
-        r <- do.call("put_object", c(list(file = rawConnectionValue(tmp), bucket = bucket, object = object), opts))
+        r <- do.call("put_object", c(list(file = tmp, bucket = bucket, object = object), opts))
     }
     return(invisible(r))
 }
