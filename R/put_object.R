@@ -69,25 +69,12 @@ function(file,
         object <- get_objectkey(object)
     }
          
-    if (missing(base_url)) {
-        base_url = Sys.getenv("AWS_S3_ENDPOINT")
-    } 
-
-
-    if (missing(region)) {
-        region = Sys.getenv("AWS_DEFAULT_REGION")
-    } 
-
-    if (missing(key)) {
-        key = Sys.getenv("AWS_ACCESS_KEY_ID")
-    } 
-
-    if (missing(secret)) {
-        secret = Sys.getenv("AWS_SECRET_ACCESS_KEY")
-    }      
-         
-         
-         
+    
+    base_url = Sys.getenv("AWS_S3_ENDPOINT")
+    region = Sys.getenv("AWS_DEFAULT_REGION")
+    key = Sys.getenv("AWS_ACCESS_KEY_ID")
+    secret = Sys.getenv("AWS_SECRET_ACCESS_KEY")      
+             
     acl <- match.arg(acl)
     headers <- c(list(`x-amz-acl` = acl), headers)
     if (isTRUE(multipart)) {
